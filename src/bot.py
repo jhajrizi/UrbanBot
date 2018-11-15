@@ -21,8 +21,11 @@ def run_bot(r, comments_replied_to):
     print("Searching through the last 1000 comments...")
     for comment in r.subreddit('test').comments(limit=1000):
         if "!urban" in comment.body and comment.id not in comments_replied_to and comment.author != r.user.me():
-            print("Comment found containing \"!tophit\" with id: " + comment.id)
-            comment.reply("")
+            print("Comment found containing \"!urban\" with id: " + comment.id)
+            keyword = comment.body[7:]
+            target_url = "https://www.urbandictionary.com/define.php?term=" + keyword
+            response = run_scraper(target_url)
+            comment.reply("**" + keyword + ":** " + response + "\n\n###### Definition provided by [urbandictionary.com](https://www.urbandictionary.com/).")
             print("Replied to comment with id: " + comment.id)
             comments_replied_to.append(comment.id)
             with open("comments_replied_to.txt", "a") as f:
@@ -54,7 +57,7 @@ def run_scraper(target_url):
     soup = BeautifulSoup(r.text, "html.parser")
     summary = soup.find(class_="meaning").get_text()
     
-    print(summary)
+    return summary
 
 #initialize the bot
 r = bot_login()
@@ -64,6 +67,3 @@ print(comments_replied_to)
 
 while True:
     run_bot(r, comments_replied_to)
-
-#run_scraper("https://www.urbandictionary.com/define.php?term=DAE")
-            

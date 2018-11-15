@@ -25,7 +25,7 @@ def run_bot(r, comments_replied_to):
             keyword = comment.body[7:]
             target_url = "https://www.urbandictionary.com/define.php?term=" + keyword
             response = run_scraper(target_url)
-            comment.reply("**" + keyword + ":** " + response + "\n\n###### Definition provided by [urbandictionary.com](https://www.urbandictionary.com/).")
+            comment.reply("**" + keyword + ":** " + response + "\n\n***\n\nDefinition provided by [urbandictionary.com](https://www.urbandictionary.com/).")
             print("Replied to comment with id: " + comment.id)
             comments_replied_to.append(comment.id)
             with open("comments_replied_to.txt", "a") as f:

@@ -1,7 +1,4 @@
 config.py
-config.pyc
-comments_replied_to.txt
 bot.py~
 __pycache__
 .gitignore~
-
